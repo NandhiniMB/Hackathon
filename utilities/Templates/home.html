@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+   <!-- Mirrored from norhan-mohammed.com/demos/fekralab/marina/live-preview/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Aug 2019 06:12:32 GMT -->
+   <head>
+      <title>Home 2 - Marina</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content=" Real Estate HTML Template">
+      <meta name="keywords" content="Real Estate,Landing app ,HTML,Template,theme,themeforest,envato ">
+      <meta name="Author" content="Norhan , FekraLab">
+      <meta name="copyright" content="Copyright © 2018MarinaAll rights reserved">
+      <link rel="stylesheet" href="{% static 'main.css' %}" />
+      <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+      <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>  
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>  
+      <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <!--   /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */ -->
+    <style>
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin-top:  5px;
+        margin-right: 50px;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+        width:1100px;
+
+
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        /*width:300px;*/
+        margin-top:10px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pac-card" id="pac-card">
+      <div>
+        <!-- <div id="title" style="background-color:#191970;">
+          Here U Find!
+        </div> -->
+        <div class="container bg-color-white full-search-form controls" style="background-color: #3CB371">
+               <!-- Search Form -->
+                <div class="row">
+               <div id="search-form-full">
+                  <form class="row form form-color-light-secondary" method="post">
+                    {% csrf_token %}
+                      
+                    <div class="col-md-4">
+                     <input id="pac-input"  style="width:125%; height:75%;" class="pac-controls" type="text" placeholder="Search Location">
+                    </div>
+                     <!-- <span class="glyphicon glyphicon-search"></span> -->
+                     <div class="col-md-3">
+                        <div class="select-wrapper" style="margin-left:90px;margin-top:8px; width:100%; height:75%; background-color: #FFF">
+                           <select class="form-control"  id="utilities" >
+                              <option selected value="">Select Utilities</option>
+                              {% for utility in u%}
+                              <!-- <option value="1">Resturant</option>
+                              <option value="2">Hospital</option>
+                              <option value="3">Petrol Bunk</option>
+                              <option value="4">Mall</option>
+                              <option value="5">Sport Ground</option> -->
+                               <option value="5">{{utility.name}}</option>
+                               {% endfor %}
+
+                           </select>
+                        </div>
+                     </div>
+  <br><br>
+                     <div class="col-md-3">
+                        <div class="select-wrapper" style="margin-left:110px;margin-top:8px; width:100%; height:75%; background-color: #FFF">
+                           <select class="form-control" id="distance">
+                              <option selected value="0">all</option>
+                              <option value="1">2 kms</option>
+                              <option value="2">3 kms</option>
+                              <option value="3">5 kms</option>
+                           </select>
+                        </div>
+                     </div>
+                     
+                     <div class="col-md-2">
+                      <br>
+                        <button style="background-color:#006400; margin-left:110px; margin-bottom: 15px; width:80%; text-align: center; " type="button" class="btn" 
+                        onclick="utilitysearch();">Search</button>
+                        <br>
+                      </div>
+                        
+                   </form>
+                   </div>
+                  </div>
+               <!-- / Search Form -->
+            </div>
+       </div>  
+    </div>
+    <div id="map"></div>
+    <div id="infowindow-content">
+      <img src="" style="width:25%; height:25%;" id="place-icon">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-address"></span>
+    </div>
+
+    <script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      var lat=''
+      var lng=''
+      var  map='' ;
+      var marker='';
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13
+        });
+        var card = document.getElementById('pac-card');
+        var input = document.getElementById('pac-input');
+        var types = document.getElementById('type-selector');
+        var strictBounds = document.getElementById('strict-bounds-selector');
+
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        // Bind the map's bounds (viewport) property to the autocomplete object,
+        // so that the autocomplete requests use the current map bounds for the
+        // bounds option in the request.
+        autocomplete.bindTo('bounds', map);
+
+        // Set the data fields to return when the user selects a place.
+        autocomplete.setFields(
+            ['address_components', 'geometry', 'icon', 'name']);
+
+        var infowindow = new google.maps.InfoWindow();
+        var infowindowContent = document.getElementById('infowindow-content');
+        infowindow.setContent(infowindowContent);
+        var marker = new google.maps.Marker({
+          map: map,
+          anchorPoint: new google.maps.Point(0, -29)
+        });
+
+        autocomplete.addListener('place_changed', function() {
+          infowindow.close();
+          marker.setVisible(false);
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+          }
+          marker.setPosition(place.geometry.location);
+          marker.setVisible(true);
+
+          var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
+
+          infowindowContent.children['place-icon'].src = place.icon;
+          infowindowContent.children['place-name'].textContent = place.name;
+          infowindowContent.children['place-address'].textContent = address;
+          infowindow.open(map, marker);
+          lat=place.geometry.location.lat();
+          lng=place.geometry.location.lng();
+
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        
+      }
+    </script>
+  <script>
+  function utilitysearch()
+         {
+            Utility_option=$('#utilities option:selected').text()
+            Utility_value=$('#utilities').val()
+            distance_selected=$('#distance option:selected').text()
+            distance_value=$('#distance').val()
+              if( $('#pac-input').val() == null || $('#pac-input').val() ==''  )
+              {
+                    alert("Select Search Location");
+                    return false;
+              }
+             if( Utility_value == null || Utility_value ==''  )
+              {
+                    alert("Select Utility option");
+                    return false;
+              }
+              // if(distance_value == null || distance_value ==' ')
+              // {
+              //       alert("Select distance");
+              //       return false;
+              // }
+            $.ajax({
+                     type:'POST',
+                     url:"{% url 'utilities:closest' %}",
+                     data:{
+                    "c_lat":lat,
+                    "c_lng":lng,
+                     "option":Utility_option,
+                     "distance":distance_selected,
+                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                     },
+                     crossDomain: true,
+                     beforeSend(){  
+                     },
+                     success(data){
+                       // alert("success");
+                       // alert(data);
+                       if(data.length ==0)
+                       {
+                        alert("OOPs! Not found");
+                        return false;
+                       }
+                    
+                        var marker, i;
+                       for (i = 0; i < data.length; i++)
+                                              {
+                                              // alert(data[i].lat)
+                                              // alert(data[i].lng)
+var infowindow = new google.maps.InfoWindow();
+                                              
+marker = new google.maps.Marker({
+position: new google.maps.LatLng(data[i].lng,data[i].lat),
+map: map
+});
+
+ google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(data[i].name);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+
+        
+                    }
+                     },
+                  });
+         }
+
+      </script> 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyEY0W311mV4AAZsGeolrCQG-sl5xlwZI&libraries=places&callback=initMap"
+        async defer></script>
+  </body>
+</html>

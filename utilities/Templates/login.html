@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="C:\Users\Admin\django-apps\kra_app\employee\images\employee\apple-icon.png">
+     <link rel="stylesheet" type="text/css" href="{% static 'importantsheet1.css' %}" />
+    <link rel="stylesheet" href="{% static 'importantsheet2.css' %} " />
+    <link rel="stylesheet" href="{% static 'importantsheet3.css' %}"/>
+   <!--  <link rel="icon" href="{% static 'images/employee/favicon.png' %}"> -->
+    <title>
+        Utility Search App
+    </title>
+    
+    <style>
+        .white{
+            background: #68bcff;
+            color: white;
+         }
+         .fulllength{
+            height: 100%;
+         }
+         .carousel-item img{
+            height:100%;
+            width:100%;
+         }
+         .logo{
+          max-width: 200px;
+         }
+    </style>
+</head>
+<body  class="" >
+    <div class="wrapper">         
+        <div class="content fulllength">
+            <div class="container-fluid fulllength">
+                <div class="row fulllength"> 
+                    <div class="col-md-6" style="padding-top:50px;">
+                        <div class="card" style="padding:50px 50px 50px 50px;">
+                            <div class="card-body">
+                                <p class="card-category">   
+                                {% load static %} 
+                                <img src="{% static 'images.jpg' %}" class="img-fluid logo mx-auto d-block"   />
+                                <br>                      
+                                <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger btn-block"><b>Sign in with Google &nbsp;
+                                  <i class="fab fa-google-plus"></i></b></a>
+                                </p>
+                                <br>
+                                <a href="/admin" class="btn btn-primary btn-sm">Admin Area</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 white fulllength d-none d-sm-block" style="height: 67%; margin-top: 72px;" >                        
+                        <div id="myCarousel" class="carousel slide align-items-center" data-ride="carousel">
+                          <!-- Indicators -->
+                          <ul class="carousel-indicators">
+                           <!--  -->
+                           <!--  <li data-target="#myCarousel" data-slide-to="0" class="active"></li> -->
+                            <!-- <li data-target="#myCarousel" data-slide-to="1"></li> <li data-target="#myCarousel" data-slide-to="2"></li> -->
+                          </ul>
+                          <br>
+                          <br>
+                          <!-- The slideshow -->
+                          <div class="carousel-inner ">
+                            <div class="carousel-item active">
+                              {% load static %}
+                              <img src="{% static 'explore1.png' %}" alt="Los Angeles"/>
+                              <!-- <div class="carousel-caption d-none d-md-block">
+                                <h5>Employee Performance</h5>
+                                <p>Key Result Areas</p>
+                              </div> -->
+                            </div>
+                           
+                          </div>
+                          
+                       
+                        </div>
+                        <h1 class="text text-center white">USA</h1>
+                        <hr>
+                        <h3 class="text text-center white"><b>Utility Search App</b></h3>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</body>
+<script src="{% static '/employee/jquery.min.js' %}" type="text/javascript"></script>
+  <script src="{% static '/employee/popper.min.js' %}" type="text/javascript"></script>
+  <script src="{% static '/employee/bootstrap-material-design.min.js' %}" type="text/javascript"></script>
+  <script src="{% static '/employee/perfect-scrollbar.jquery.min.js' %}"></script>
+  <!--  Google Maps Plugin    -->
+   <!-- Chartist JS -->
+   <!--  Notifications Plugin    -->
+  <script src="{% static '/employee/bootstrap-notify.js' %}"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{% static '/employee/material-dashboard.min.js' %}" type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="{% static '/employee/demo.js' %}"></script>
+
+
+
+    </html>
+<!--

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+ <html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="icon" href="{% static 'images/employee/favicon.png' %}">
+    <title>
+    {% block title %}
+       Utility Search App
+    {% endblock %} 
+
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static '/employee/importantsheet1.css' %}" />
+    <link rel="stylesheet" href="{% static '/employee/importantsheet2.css' %} " />
+    <link rel="stylesheet" href="{% static 'employee/importantsheet33.css' %}"/>
+    <!-- Documentation extras -->
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="{% static 'employee/importantsheet4.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><!-- iframe removal -->
+    
+    
+</head>
+
+    <!-- Favicons -->
+  <body class="">
+    
+    	<nav class="navbar navbar-expand-lg p-3 fixed-top bg-color-dark scrolling" id="navbar-default">
+    		<div class="container-fluid">
+    			<a class="navbar-brand logo mb-0 h1 active" href="index.html">
+    		       <img src="assets/images/logo/logo_light.png" alt="logo of Marina" title="Marina">
+    		    </a>
+    	    <div class="collapse navbar-collapse" id="navbar-collapse">
+    	          <ul class="navbar-nav nav nav-pills ml-auto  "><!-- home dropdown -->
+    		        <li class="nav-item dropdown">
+    		      	 <a class="nav-link dropdown-toggle active" id="navbar-defaulthome-dropdown" data-toggle="dropdown" href="#!" role="button" aria-expanded="false" aria-haspopup="true">home
+    		      	 </a>
+    		      	<!-- <div class="dropdown-menu" aria-labelledby="navbar-defaulthome-dropdown"><a class="dropdown-item active" href="index.html">Home 1 </a><a class="dropdown-item" href="index-2.html">Home 2 </a><a class="dropdown-item" href="index-3.html">Home 3</a><a class="dropdown-item" href="index-4.html">Home 4</a></div>-->
+    		        </li>
+    		        <li class="nav-item"><a class="nav-link" href="contact-us.html">
+    		      	  <span>contact</span></a>
+    		      	</li><!-- socialMediaLinks -->
+    		      	<li class="nav-item"><a class="nav-link" href="contact-us.html">
+    		      	  <span>About</span></a></li><!-- socialMediaLinks -->
+    		       </ul>
+    		</div>
+    		</div>
+    	</nav>	      	
+    </header>
+    <div style="margin:100px;">
+    <form method= "post">
+      {% csrf_token %}
+      <center>
+         <div class="row">
+            <div class="col-md-6">
+               <div class="dropdown">
+                  <div class="div-label">
+                      <label class="label-label">
+                        <!-- <i class="material-icons">person </i> -->
+                         From Location
+                       </label>
+	                </div>
+	                <button id="options"  aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle drop">Mantra Labs Private LImited<span class="caret"></span></button>
+                </div>
+            </div>
+            <div class="dropdown">
+               <div class="div-label" style="margin-left: 100px;">
+                  <label class="label-label" >
+                   To Location
+                  </label>
+               </div>
+                 <button id="options"  aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle drop">Select Utility<span class="caret"></span></button>
+                  <ul class="dropdown-menu" id="options">
+                    <li><a href="#" > Resturant </a></li>
+                    <li><a href="#" > Movie</a></li>
+                    <li><a href="#" > Petrol Bunk</li>
+                    <li><a href="#" > Hospitals</a></li>
+                    <li><a href="#" > Sports ground</a></li>
+                 </ul>
+            </div>
+        </div>   
+      <center>
+         <button type="button" id="button" onclick="viewattendance()">Search </button>
+      </center>
+   </form>
+  </div>
+  </body>
+</html>
+    
